@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0062)http://www.robots.ox.ac.uk/~vgg/research/affine/detectors.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="keywords" content=" local features, affine regions, affine features, affine detectors, local descriptors, invariant detectors, affine invariance, invariant descriptors,interest points, matching, recognition">
+<title>
+Affine Covariant Features
+</title>
+<link rel="stylesheet" type="text/css" href="./Affine Covariant Features_files/vggcss.css" media="all">
+<link rel="stylesheet" type="text/css" href="./Affine Covariant Features_files/vggnavbar.css" media="all">
+<link rel="stylesheet" type="text/css" href="./Affine Covariant Features_files/vggdata.css" media="all">
+<link rel="stylesheet" type="text/css" href="./Affine Covariant Features_files/vggcollabcss.css" media="all">
+<link rel="stylesheet" type="text/css" href="./Affine Covariant Features_files/vggcollabnavbar.css" media="all">
+<link rel="stylesheet" type="text/css" href="./Affine Covariant Features_files/vggcollabdata.css" media="all">
+
+<style type="text/css">
+.slidingDiv {
+    display:none;
+    background-color: #BDBDBD;
+    padding:5px;
+    margin-top:1px;
+    border-bottom:5px solid #1C1C1C;
+    border-top:5px solid #1C1C1C; 
+    zoom: 1;
+}
+</style>
+
+<script type="text/javascript" src="./Affine Covariant Features_files/jquery.min.js.download"></script>
+<script type="text/javascript" src="./Affine Covariant Features_files/usecookies.js.download"></script>
+
+</head>
+<body style="">
+<div class="slidingDiv" style="display: block;">
+    <table style="vertical-align:middle">
+    <tbody><tr>
+        <td>
+        <p align="center">
+        <b>Cookies</b>
+        </p>
+        <p align="left">This website uses Google Analytics to help us improve the website content.
+        This requires the use of standard Google Analytics cookies, as well as a cookie to record your response 
+        to this confirmation request. If this is OK with you, please click 'Accept cookies', otherwise you will 
+        see this notice on every page. For more information, please <a href="http://www.admin.ox.ac.uk/dataprotection/cookies/">click here</a>.
+        </p>
+        </td>
+        <td>
+        <button id="hide">Accept cookies</button>
+        </td>
+    </tr>
+    </tbody></table>
+</div>
+
+
+
+<!-- COLLABORATIONS TITLE BAR -->
+
+<h1><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/index.html">Affine Covariant Features</a></h1>
+
+  <div id="sitenav">
+    <h4>Jump to</h4>
+    <ul>
+      <li><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/index.html">Main Info</a></li>
+      <li><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/detectors.html">Region detectors</a></li>
+      <li><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/descriptors.html">Region descriptors</a></li>
+      <li><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/evaluation.html">Detectors evaluation</a></li>
+      <li><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/desc_evaluation.html">Descriptors evaluation</a></li>
+    </ul>
+  </div>
+
+<div id="logogroup">
+    <a href="http://www.robots.ox.ac.uk/"><abbr title="University of Oxford"><img border="0" src="./Affine Covariant Features_files/oxu_logo.jpg" height="75" width="63" alt="University of Oxford"></abbr></a>
+    <a href="http://www.esat.kuleuven.ac.be/"><abbr title="Katholieke Universiteit Leuven"><img border="0" src="./Affine Covariant Features_files/cwisstyle_KULvignet.jpg" height="37" width="142" alt="Katholieke Universiteit Leuven"></abbr></a>
+    <a href="http://www.inrialpes.fr/"><abbr title="Inria Rhone-Alpes"><img border="0" src="./Affine Covariant Features_files/inria2.gif" height="37" width="142" alt="Inria Rhone-Alpes"></abbr></a>
+    <a href="http://cmp.felk.cvut.cz/"><abbr title="Czech Technical University"><img border="0" src="./Affine Covariant Features_files/cmpsmall.gif" height="57" width="116" alt="Czech Technical University"></abbr></a>
+</div>
+
+<h6 class="border">Collaborative work between: the Visual Geometry Group, Katholieke Universiteit Leuven, Inria Rhone-Alpes and the Center for Machine Perception.</h6>
+
+<!-- END collaborations title bar -->
+
+
+<h2>Affine Covariant Region Detectors</h2>
+
+<div id="main">
+
+<table border="0" cellpadding="10" cellspacing="0">
+<tbody><tr>
+
+<td align="center"><h4>Input image</h4><a target="_self" href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">
+        <img border="0" alt="graffiti" src="./Affine Covariant Features_files/input.gif" width="202" height="162"></a></td>
+
+<td align="center"><img border="0" alt=" -&gt; " src="./Affine Covariant Features_files/arrow1.gif" width="16" height="35"><br>
+        <a target="_self" href="http://www.robots.ox.ac.uk/~vgg/research/affine/detectors.html#binaries">Region detector</a></td>
+
+<td align="left" width="250"><h4>Detector output</h4><br>
+        <u>format:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        </u>1.0<br>
+        m<br>
+        u<sub>1 </sub>v<sub>1 </sub>a<sub>1 </sub>b<sub>1</sub> c<sub>1</sub><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :<br>
+    u<sub>m </sub>v<sub>m </sub>a<sub>m </sub>b<sub>m</sub> c<sub>m</sub><br>
+        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        </u>output example:<br>
+        <a target="_blank" href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.haraff">img1.haraff</a></td>
+
+<td align="center"><img border="0" alt=" -&gt; " src="./Affine Covariant Features_files/arrow1.gif" width="16" height="35"><br>
+        <a target="_blank" href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/display_features.m">display_features.m</a></td>
+
+<td align="center"><h4>Image with displayed regions</h4><a target="_blank" href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.haraff.gif">
+        <img border="0" alt="graffiti with ellipses" src="./Affine Covariant Features_files/regions.gif" align="left" width="202" height="162"></a></td>
+
+</tr></tbody></table>
+
+
+<h3>Parameters defining an affine region</h3>
+<p><code>u,v,a,b,c</code> &nbsp;&nbsp; in &nbsp;&nbsp; <code>a(x-u)(x-u)+2b(x-u)(y-v)+c(y-v)(y-v)=1</code><br>
+ with <code>(0,0)</code> at image top left corner</p>
+
+
+<h3><a name="binaries"></a>Code</h3> - provided by the authors, see  <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/index.html#publications">publications</a> for details and links to authors web sites.
+<table border="0" cellpadding="5" cellspacing="0">
+  <tbody><tr>
+    <td><b><a name="binaries"></a>Linux binaries</b><br></td>
+    <td><b>Example of use</b></td>
+    <td><b>Displaying regions in Matlab</b></td>
+  </tr>
+  <tr>
+    <td><a target="_self" href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/h_affine.ln.gz">Harris-Affine &amp; Hessian-Affine</a></td>
+    <td><code>prompt&gt;./h_affine.ln 
+    -haraff -i <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a> -o img1.haraff -thres 
+    1000</code></td>
+    <td><code>matlab&gt;&gt;
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/display_features.m">display_features</a>('<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.haraff">img1.haraff</a>',
+    '<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a>',1,1)</code>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code>prompt&gt;./h_affine.ln 
+    -hesaff -i <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a> -o img1.hesaff -thres 500</code></td>
+    <td><code>matlab&gt;&gt; 
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/display_features.m">display_features</a>('<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.hesaff">img1.hesaff</a>', 
+    '<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a>',1,1)</code>
+    </td>
+  </tr>
+  <tr>
+    <td><a target="_self" href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/mser.tar.gz">MSER</a> -  Maximaly stable extremal regions (also Windows)</td>
+    <td><code>prompt&gt;./mser.ln&nbsp;&nbsp; 
+    -t 2 -es 2 -i <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a> -o img1.mser</code></td>
+    <td><code>matlab&gt;&gt; 
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/display_features.m">display_features</a>('<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.mser">img1.mser</a>',
+    '<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a>',1,1)</code></td>
+  </tr>
+  <tr>
+    <td><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/ibr.ln.gz">IBR</a> -  Intensity extrema based detector</td>
+    <td><code>prompt&gt;./ibr.ln&nbsp;&nbsp;
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a> img1.ibr -scalefactor 1.0</code></td>
+    <td><code>matlab&gt;&gt; 
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/display_features.m">display_features</a>('<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ibr">img1.ibr</a>',
+    '<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a>',1,1)</code></td>
+  </tr>
+  <tr>
+    <td><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/ebr.ln.gz">EBR</a> - Edge based detector</td>
+    <td><code>prompt&gt; ./ebr.ln&nbsp;&nbsp;
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a> img1.ebr</code></td>
+    <td><code>matlab&gt;&gt; 
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/display_features.m">display_features</a>('<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ebr">img1.ebr</a>',
+    '<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a>',1,1)</code></td>
+  </tr>
+  <tr>
+    <td><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/salient.tar.gz">Salient</a> region detector</td>
+    <td><code>prompt&gt;./salient.ln&nbsp;
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a> img1.sal</code></td>
+    <td><code>matlab&gt;&gt; 
+    <a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/display_features.m">display_features</a>('<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.sal">img1.sal</a>',
+    '<a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/img1.ppm">img1.ppm</a>',1,1)</code></td>
+  </tr>
+</tbody></table>
+
+<hr style="width: 100%; height: 2px;">
+
+
+<h3><a name="updates"></a>Updates</h3> 
+
+
+&lt;<table border="0" cellpadding="5" cellspacing="3">
+  <tbody><tr>
+    <td valign="top"><b><a name="binaries"></a>Binaries</b><br></td>
+    <td valign="top"><b>Date</b></td>
+    <td valign="top"><b>Comments</b></td>
+  </tr>
+  <tr>
+    <td valign="top"><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/extract_features.tar.gz">Harris &amp; Hessian</a> (also Windows)(1921206B)</td>
+    <td valign="top">8-6-2006</td>
+    <td valign="top">Scale &amp; affine invariant feature detectors used in Mikolajczyk CVPR06 and CVPR08 for object class recognition.
+      Efficient implementation of both, detectors and descriptors. Currently only sift descriptor was tested with the 
+      detectors but the other descriptors should work as well. Package contains a PCA basis for projections on fewer 
+      number of dimensions. Run with pca projection and take as many SIFT dimensions as you wish. Run without options for
+      help. Includes windows executable which requires cygwin.
+      <pre>./extract_features -harhes -i img.png -sift -pca harhessift.basis</pre>
+    </td></tr>
+<tr><td valign="top"><a href="http://www.robots.ox.ac.uk/~timork/salscale.html">Scale Saliency</a></td>
+<td valign="top">8-9-2006</td>
+<td valign="top">Some problems were reported for the Salient region detector. Please, try the new versions from the author's
+homepage.</td>
+
+</tr>
+
+<tr><td valign="top"><a href="http://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/extract_features2.tar.gz">Detectors &amp; Descriptors</a></td>
+<td valign="top">12-6-2007</td>
+<td valign="top">Same as Harris and Hessian above but more parameters are made available for setting, a few bugs fixed <i>etc.</i> 
+It's
+suitable for extracting features for recognition in terms of feature number and type.
+ </td>
+</tr>
+<tr><td valign="top"><a href="http://www.vision.ee.ethz.ch/~surf/">
+SURF detector</a></td>
+<td valign="top">10-7-2007</td>
+<td valign="top">
+ Speeded Up Robust Features - fast implementation of SIFT using integral images.</td>
+</tr>
+<tr><td valign="top"><a href="http://mi.eng.cam.ac.uk/~er258/work/fast.html">
+FAST corner detector</a></td>
+<td valign="top">10-7-2007</td>
+<td valign="top">Features from Accelerated Segment Test - 
+ efficient implementation of SUSAN corner detector using decision trees.
+</td>
+</tr></tbody></table>
+
+
+</div>
+
+
+
+
+
+<div id="footbar">
+Page maintained by <a href="mailto:km@robots.ox.ac.uk">km@robots.ox.ac.uk</a>. 
+<br>Last updated 12th June 2007
+</div>
+
+
+
+
+</body></html>

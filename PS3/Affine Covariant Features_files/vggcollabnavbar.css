@@ -1,0 +1,18 @@
+
+div#sitenav {
+   border-left: 2px solid #DD8800;
+   border-bottom: 2px solid #DD8800;
+   width: 12em; 
+   margin: -2.5em 0em 0em 0em; 
+   background-color: white; 
+}
+
+div#sitenav h4 {
+   background: #DD8800; 
+   color: #EEEE88;
+}
+
+div#sitenav ul a:link {color: #DD4400;}
+div#sitenav ul a:visited {color: #BBBBBB;}
+div#sitenav ul a:hover {color: #FFAA00;}
+div#sitenav ul a:active {color: #EEEE00;}
